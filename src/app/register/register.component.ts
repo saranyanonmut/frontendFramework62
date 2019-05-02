@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { BackendService } from "../backend.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-register",
@@ -54,15 +55,29 @@ export class RegisterComponent implements OnInit {
         )
         .subscribe(data => {
           if (data.status == true) {
-            alert("Register success!");
+            Swal.fire({
+              type: "success",
+              title: "สาเร็จ",
+              text: "register success!"
+            });
+
             this.router.navigate(["/home"]);
           } else {
-            alert(data.message);
+            Swal.fire({
+              type: "success",
+              title: "สาเร็จ",
+              text: data.message
+            });
           }
           this.submitting = false;
         });
     } else {
-      alert("Invalid!"); // show mesage กรณีกรอกข้อมูลไม่ครบใน input
+      Swal.fire({
+        type: "error",
+        title: "ไม่สำเร็จ",
+        text: "Invalid!"
+      });
+
       this.submitting = false;
     }
   }
